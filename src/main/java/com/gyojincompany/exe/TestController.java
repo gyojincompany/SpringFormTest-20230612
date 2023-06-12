@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gyojincompany.exe.dto.MemberDto;
@@ -40,9 +41,9 @@ public class TestController {
 //		model.addAttribute("memberPW", mpw);
 //		
 //		return "loginOk";
-//	}
+//	}	
 	
-	@RequestMapping(value = "/loginOk")
+	@RequestMapping(value = "/loginOk", method = RequestMethod.POST)
 	public String loginOk(@RequestParam("id") String mid, @RequestParam("pw") String mpw, Model  model) {
 		
 //		String mid = request.getParameter("id");//tiger
@@ -97,9 +98,31 @@ public class TestController {
 		return "signOk";
 	}
 	
+	@RequestMapping(value = "/keyword")
+	public String keyword() {
+		
+		return "keyword";
+	}
 	
+	@RequestMapping(value = "/keywordOk")
+	public String keywordOk(HttpServletRequest request) {
+		
+		String keyword = request.getParameter("keyword");
+		
+		if(keyword.equals("kor" )) {
+			return "keywordGood";
+		}
+		
+		return "redirect:keywordBad";
+	}
 	
-	
+	@RequestMapping(value = "/keywordBad")
+	public String keywordBad(Model model) {
+		
+		model.addAttribute("keyword", "kor");
+		
+		return "keywordBad";
+	}
 	
 	
 	
